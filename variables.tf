@@ -50,3 +50,28 @@ variable "private_subnet2" {
 variable "source_ip" {
   default = "0.0.0.0/0"
 }
+
+#below variables are for database
+
+variable "db_username" {
+  default = "admin"
+  sensitive = true
+}
+
+variable "db_password" {
+  default = "password123"
+}
+
+#variables used for lookup function
+
+variable "machine_images" {
+  type = map
+  default = {
+    amazon = "ami-0c768662cc797cd75"
+    rhel = "ami-0fdea1353c525c182"
+  }
+}
+
+variable "image_name" {
+  
+}

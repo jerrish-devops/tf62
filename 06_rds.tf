@@ -7,8 +7,8 @@ resource "aws_db_instance" "demo_rds" {
   engine                 = "mysql"
   engine_version         = "8.0.32"
   identifier             = "${var.environment}-rds-mysql"
-  username               = "admin"
-  password               = "password123"
+  username               = var.db_username
+  password               = var.db_password
   instance_class         = "db.t3.micro"
   allocated_storage      = 10
   db_subnet_group_name   = aws_db_subnet_group.demo_db_sg.id

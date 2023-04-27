@@ -3,7 +3,7 @@ resource "aws_instance" "demo_instance1" {
     Name = "${var.environment} server1 - Provisioned by TF"
     Dept = "devops"
   }
-  ami                    = var.ami[0]
+  ami                    = lookup(var.machine_images,var.image_name)
   instance_type          = var.instance_type["development"]
   subnet_id              = aws_subnet.demo_subnet1.id
   vpc_security_group_ids = [aws_security_group.demo_sg.id]
