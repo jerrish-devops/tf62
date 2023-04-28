@@ -73,5 +73,10 @@ variable "machine_images" {
 }
 
 variable "image_name" {
-  
+  default = "amazon"
+}
+
+variable "ssh_pub_key" {
+  default = "terraform-class.pub"
+  sensitive = true
 }
