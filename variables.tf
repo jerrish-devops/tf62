@@ -54,7 +54,7 @@ variable "source_ip" {
 #below variables are for database
 
 variable "db_username" {
-  default = "admin"
+  default   = "admin"
   sensitive = true
 }
 
@@ -65,10 +65,10 @@ variable "db_password" {
 #variables used for lookup function
 
 variable "machine_images" {
-  type = map
+  type = map(any)
   default = {
     amazon = "ami-0c768662cc797cd75"
-    rhel = "ami-0fdea1353c525c182"
+    rhel   = "ami-0fdea1353c525c182"
   }
 }
 
@@ -77,6 +77,6 @@ variable "image_name" {
 }
 
 variable "ssh_pub_key" {
-  default = "terraform-class.pub"
+  default   = "terraform-class.pub"
   sensitive = true
 }

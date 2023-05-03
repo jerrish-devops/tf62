@@ -35,6 +35,14 @@ resource "aws_security_group" "demo_sg" {
     cidr_blocks = [var.source_ip]
   }
 
+  ingress {
+    description = "allow rds"
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = [var.source_ip]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0

@@ -1,4 +1,3 @@
-/*
 resource "aws_db_subnet_group" "demo_db_sg" {
   name       = "tf-rds-subnet-group"
   subnet_ids = [aws_subnet.demo_subnet3.id, aws_subnet.demo_subnet4.id]
@@ -16,5 +15,5 @@ resource "aws_db_instance" "demo_rds" {
   availability_zone      = "ap-south-1a"
   vpc_security_group_ids = [aws_security_group.demo_sg.id]
   skip_final_snapshot    = true
+  db_name                = "students"
 }
-*/
