@@ -14,7 +14,7 @@ data "aws_ami" "updated_ami" {
 
 resource "aws_instance" "demo_instance1" {
   tags = {
-    Name = "${var.environment} server1 - Provisioned by TF"
+    Name = "${var.environment} ${var.instance_name[count.index]} - Provisioned by TF"
     Dept = "devops"
   }
   ami                    = "ami-022d03f649d12a49d" #data.aws_ami.updated_ami.image_id
@@ -22,6 +22,14 @@ resource "aws_instance" "demo_instance1" {
   subnet_id              = aws_subnet.demo_subnet1.id
   vpc_security_group_ids = [aws_security_group.demo_sg.id]
   key_name               = aws_key_pair.demo_ssh_pub_key.key_name
+  count = 2
+
+
+  provisioner "file" {
+    source = "nothing"
+    destination = "nowhere"
+    on_failure = continue
+  }
 
   provisioner "local-exec" {
     command = "echo ${self.public_ip} > public_ip.txt"
@@ -64,18 +72,8 @@ define('DB_DATABASE', 'students');
     destination = "/var/www/inc/dbinfo.inc"
   }
 
-}
-
-/*
-resource "aws_instance" "demo_instance2" {
-  tags = {
-    Name = "${var.environment} server2 - Provisioned by TF"
-    Dept = "devops"
+  provisioner "local-exec" {
+    command = "del public_ip.txt"
+    when = destroy
   }
-  ami                    = data.aws_ami.updated_ami.image_id
-  instance_type          = var.instance_type["development"]
-  subnet_id              = aws_subnet.demo_subnet2.id
-  vpc_security_group_ids = [aws_security_group.demo_sg.id]
-  key_name = aws_key_pair.demo_ssh_pub_key.key_name
 }
-*/

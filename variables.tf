@@ -4,6 +4,11 @@ variable "environment" {
   default = "development"
 }
 
+variable "instance_name" {
+  type = list
+  default = ["server1" , "server2"]
+}
+
 # below variables are for ec2
 
 variable "ami" {
