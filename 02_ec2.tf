@@ -12,6 +12,10 @@ data "aws_ami" "updated_ami" {
   }
 }
 
+locals {
+  multi_subnets = [aws_subnet.demo_subnet1.id , aws_subnet.demo_subnet2.id ]
+}
+
 resource "aws_instance" "demo_instance1" {
   tags = {
     Name = "${var.environment} ${var.instance_name[count.index]} - Provisioned by TF"
@@ -19,11 +23,10 @@ resource "aws_instance" "demo_instance1" {
   }
   ami                    = "ami-022d03f649d12a49d" #data.aws_ami.updated_ami.image_id
   instance_type          = var.instance_type["development"]
-  subnet_id              = aws_subnet.demo_subnet1.id
+  subnet_id              = local.multi_subnets[count.index]
   vpc_security_group_ids = [aws_security_group.demo_sg.id]
   key_name               = aws_key_pair.demo_ssh_pub_key.key_name
-  count = 2
-
+  count = var.high_availablity == true ? 2 : 1
 
   provisioner "file" {
     source = "nothing"

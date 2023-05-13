@@ -9,6 +9,11 @@ variable "instance_name" {
   default = ["server1" , "server2"]
 }
 
+variable "high_availablity" {
+  type = bool
+  default = false
+}
+
 # below variables are for ec2
 
 variable "ami" {
